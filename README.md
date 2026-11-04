@@ -11,8 +11,11 @@ This repository contains the main implementation files and experimental results 
 
 ## Dataset
 
-The experiments were conducted using the NSL-KDD dataset.
+The experiments were conducted using the **CICIDS2017** dataset.  
+Due to size limitations, the original dataset is not included in this repository.  
+You can download it from the official source:  
+[https://www.unb.ca/cic/datasets/index.html](https://www.unb.ca/cic/datasets/index.html)
 
 ## Reproducibility
 
-The provided files document the main steps of the proposed method and the settings used in the experiments, allowing readers to examine the implementation and reported results.
+This repository provides the main implementation files and experimental configurations used in our study. The included source code, selected feature indices, model weights, and evaluation results allow readers to examine the proposed method and reproduce the experimental setup described in the paper.
