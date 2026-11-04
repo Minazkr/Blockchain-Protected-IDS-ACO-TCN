@@ -4,8 +4,6 @@ This repository contains the main implementation files and experimental results 
 
 # A Blockchain-Protected Lightweight Intrusion Detection Framework Using ACO and TCN for Resource-Constrained IoT Devices
 
-## Overview
-This repository provides the implementation of a lightweight intrusion detection framework...
 
 ## Overview
 
