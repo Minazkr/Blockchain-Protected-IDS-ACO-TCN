@@ -2,6 +2,11 @@
 
 This repository contains the main implementation files and experimental results of our proposed intrusion detection framework. It is intended to provide readers with a clear overview of the implementation and the experimental setup used in this study.
 
+# A Blockchain-Protected Lightweight Intrusion Detection Framework Using ACO and TCN for Resource-Constrained IoT Devices
+
+## Overview
+This repository provides the implementation of a lightweight intrusion detection framework...
+
 ## Overview
 
 This repository provides the implementation of a lightweight intrusion detection framework designed for resource-constrained IoT environments. The method combines Information Gain–guided Ant Colony Optimization (IG-ACO) for feature selection with a causal Temporal Convolutional Network (TCN) for classification. A permissioned ledger based on ECDSA is included to protect critical detection events.
@@ -33,3 +38,15 @@ You can download it from the official source:
 ## Reproducibility
 
 This repository provides the main implementation files and experimental configurations used in our study. The included source code, selected feature indices, model weights, and evaluation results allow readers to examine the proposed method and reproduce the experimental setup described in the paper.
+
+## Citation
+
+If you use this code or find it useful, please cite our paper:
+
+```bibtex
+@article{YourKey2026,
+  title={A Blockchain-Protected Lightweight Intrusion Detection Framework Using ACO and TCN for Resource-Constrained IoT Devices},
+  author={Author1 and Author2 and Author3},
+  journal={Journal Name},
+  year={2026}
+}
