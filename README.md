@@ -26,12 +26,21 @@ The framework consists of three main components:
 - TCN model implementation and trained weights
 - Experimental configurations and evaluation results
 
-## Dataset
+## Environment
 
-The experiments were conducted using the **CICIDS2017** dataset.  
-Due to size limitations, the original dataset is not included in this repository.  
-You can download it from the official source:  
-[https://www.unb.ca/cic/datasets/index.html](https://www.unb.ca/cic/datasets/index.html)
+Experiments were run on **Google Colab** with the following configuration:
+
+- Python: 3.13.16
+- Operating system: Ubuntu 24.04.4 LTS
+- Runtime: NVIDIA Tesla T4 GPU (15 GB memory), driver 580.82.07, CUDA 13.0
+- Package versions: see `environment_freeze.txt`
+
+Latency and energy measurements were performed on a Raspberry Pi, not on Colab. See the Hardware measurements section.
+
+## Datasets
+
+- **CICIDS2017:** (https://www.unb.ca/cic/datasets/index.html)
+- **NSL-KDD:** (https://www.unb.ca/cic/datasets/nsl.html)
 
 ## Reproducibility
 
