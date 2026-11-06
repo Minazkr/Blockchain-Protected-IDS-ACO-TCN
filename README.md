@@ -7,7 +7,7 @@ This repository contains the main implementation files and experimental results 
 
 ## Overview
 
-This repository provides the implementation of a lightweight intrusion detection framework designed for resource-constrained IoT environments. The method combines Information Gain–guided Ant Colony Optimization (IG-ACO) for feature selection with a causal Temporal Convolutional Network (TCN) for classification. A permissioned ledger based on ECDSA is included to protect critical detection events.
+This repository provides the implementation of a lightweight intrusion detection framework designed for resource-constrained IoT environments. The method combines Information Gain–guided Ant Colony Optimization (IG-ACO) for feature selection with a causal Temporal Convolutional Network (TCN) for classification. 
 
 The experimental protocol is designed to avoid common sources of leakage. Feature selection, scaling, and categorical encoding are fitted exclusively on the training set. Chronological splits with a purge gap are used for CICIDS2017, and the official train/test files are respected for NSL-KDD. Class imbalance is explicitly addressed, with particular attention given to rare attack classes through class weighting and detailed per-class reporting.
 
@@ -41,6 +41,7 @@ Latency and energy measurements were performed on a Raspberry Pi, not on Colab. 
 
 - **CICIDS2017:** (https://www.unb.ca/cic/datasets/index.html)
 - **NSL-KDD:** (https://www.unb.ca/cic/datasets/nsl.html)
+- **Edge-IIoTset Cyber Security Dataset of IoT & IIoT(https://www.kaggle.com/datasets/mohamedamineferrag/edgeiiotset-cyber-security-dataset-of-iot-iiot)
 
 ## Reproducibility
 
