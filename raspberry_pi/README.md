@@ -9,3 +9,5 @@ export_weights.py: A helper Python script executed on the training machine after
 ## Usage and execution guide:
 1. Generate weights and parameters (model_weights.h).
 After training the model in Python, run the following command to export the weights and normalisation parameters for C++:
+python export_weights.py --train-csv train_split.csv --checkpoint tcn.pt \
+    --classes "Normal,Anomalous" --out model_weights.h
