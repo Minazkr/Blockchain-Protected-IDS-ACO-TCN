@@ -125,31 +125,68 @@ std::vector<std::string> splitCsv(const std::string& line) {
 }
 
 double parseField(const std::string& s) {
-    if (s.empty()) return NAN;
+    const std::string value = trim(s);
+    if (value.empty()) return NAN;
+
     char* end = nullptr;
-    const double v = std::strtod(s.c_str(), &end);
-    return (end == s.c_str()) ? NAN : v;
+    const double parsed =
+        std::strtod(value.c_str(), &end);
+
+    if (end == value.c_str() || *end != '\0')
+        return NAN;
+
+    return parsed;
 }
 
-long peakRssKb() {
-    struct rusage ru;
-    getrusage(RUSAGE_SELF, &ru);
-    return ru.ru_maxrss;  // Peak resident set size in kilobytes
+
+long peakRssKiB() {
+    struct rusage ru {};
+
+    if (getrusage(RUSAGE_SELF, &ru) != 0)
+        return -1;
+
+    // Linux reports ru_maxrss in KiB.
+    return ru.ru_maxrss;
 }
+
 
 int selfCheck() {
     float logits[N_CLASS];
     forward(CHECK_INPUT, logits);
-    double maxDiff = 0.0;
-    for (int k = 0; k < N_CLASS; ++k) {
-        const double d = std::fabs(static_cast<double>(logits[k]) - CHECK_LOGITS[k]);
-        if (d > maxDiff) maxDiff = d;
-    }
-    std::printf("max |logit diff| vs PyTorch = %.3g\n", maxDiff);
-    return maxDiff < 1e-4 ? 0 : 1;
-}
 
-}  // namespace
+    double maxDiff = 0.0;
+
+    for (int k = 0; k < N_CLASS; ++k) {
+        const double actual = static_cast<double>(logits[k]);
+        const double expected =
+            static_cast<double>(CHECK_LOGITS[k]);
+
+        if (!std::isfinite(actual) ||
+            !std::isfinite(expected)) {
+            std::fprintf(
+                stderr,
+                "Reference check failed: non-finite logit "
+                "at class index %d.\n",
+                k
+            );
+            return 1;
+        }
+
+        const double diff = std::fabs(actual - expected);
+        if (diff > maxDiff) maxDiff = diff;
+    }
+
+    const bool passed = maxDiff < 1e-4;
+
+    std::printf(
+        "reference_vector_check=%s "
+        "max_abs_logit_diff=%.9g tolerance=1e-4\n",
+        passed ? "PASS" : "FAIL",
+        maxDiff
+    );
+
+    return passed ? 0 : 1;
+}
 
 int main(int argc, char** argv) {
     if (argc == 2 && std::strcmp(argv[1], "--check") == 0) return selfCheck();
@@ -207,7 +244,7 @@ int main(int argc, char** argv) {
         std::printf("%ld,%s,%.1f\n", rowIdx, CLASS_NAMES[best], us);
     }
 
-    std::fprintf(stderr, "Execution summary: rows=%ld windows=%ld mean_latency_us=%.1f peak_rss_kb=%ld\n",
+    std::fprintf(stderr, "Execution summary: rows=%ld windows=%ld mean_forward_us=%.1f peak_process_rss_kib=%ld\n",
                  rowIdx, windows, windows ? totalUs / windows : 0.0, peakRssKb());
     return 0;
 }
